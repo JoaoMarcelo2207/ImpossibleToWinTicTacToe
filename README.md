@@ -3,6 +3,6 @@ This game is a "horror" game, it's a traditional tic-tac-toe game, but you play 
 
 Known issues: 
  - The AI is not perfect, you always gonna draw or loose but sometimes the AI dosen't take the optimal path.
- - Peformace Issue ( it's for learning propositals so, feel free do modify and make a better code).
+ - Peformace Issue ( it's for learning propositals so feel free do modify and make a better code).
 
 [SPOILER WARING]: For the horror elements, I created a function that creates 2 txt files on the player's desktop, joking about the unbeatable AI taking over your pc and showing a fake ip, nothing malicious just a silly prank of a "horror" game to send to friends
