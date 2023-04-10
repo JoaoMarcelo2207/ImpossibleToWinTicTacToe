@@ -14,6 +14,7 @@ namespace ImpossibleToWinTicTacToe
         public Game()
         {
             InitializeComponent();
+            // starts an abstract board linked to the original board
             board[0, 0] = A1;
             board[0, 1] = A2;
             board[0, 2] = A3;
@@ -33,13 +34,15 @@ namespace ImpossibleToWinTicTacToe
         private void btn_Click(object sender, EventArgs e)
         {
             Button b = (Button)sender;
+            //if it's the player's turn
             if (turn)
             {
-
+                //place the X and make the button not enabled
                 b.Text = "X";
                 turn = false;
                 b.Enabled = false;
                 turnCounter++;
+                //check if the player won with this move and if he hasn't it's the AI turn
                 winHandler();
                 if (!gameWinner)
                 {
@@ -54,12 +57,14 @@ namespace ImpossibleToWinTicTacToe
         {
             double bestScore = double.NegativeInfinity;
             int[] move = new int[2];
+            //look for an available position in the abstract board (linked with the original)
             for (int i = 0; i < 3; i++)
             {
                 for(int j = 0; j < 3; j++)
                 {
                     if(board[i,j].Text == "")
                     {
+                        //places the O and call minimax function that's going to make a pontuation about this move and find the perfect move
                         board[i, j].Text = "O";
                         double score = minimax(board, 0, false);
                         board[i, j].Text = "";
@@ -72,20 +77,23 @@ namespace ImpossibleToWinTicTacToe
                     }
                 }
             }
+            //after the perfect move is found, make it!
             board[move[0], move[1]].Text = "O";
             board[move[0], move[1]].Enabled = false;
             turnCounter++;
             winHandler();
             turn = true;
         }
-
+        
+        //pontuation for the minimax algorithm
         Dictionary<string, double> scores = new Dictionary<string, double>
         {
             { "X", -1 },
             { "O", 1 },
             { "tie", 0 }
         };
-
+        
+        //recursively finds the best movie looking in all scenarios and return the best pontuation
         private double minimax(Button[,] board, int depth, bool isMaxmizing)
         {
             String result = winChecker();
@@ -133,7 +141,8 @@ namespace ImpossibleToWinTicTacToe
 
             
         }
-  
+        
+        //auxiliary function to check who won in one of the possibilities that the algorithm calcs
         private String winChecker()
         {
             String winner = null;
@@ -189,7 +198,9 @@ namespace ImpossibleToWinTicTacToe
             }
 
         }
-
+        
+        
+         //function that check if someone wins
         private void winHandler()
         {
             bool winner = false;
@@ -251,7 +262,8 @@ namespace ImpossibleToWinTicTacToe
             menu.Show();
             this.Hide();
         }
-
+        
+        //function to show the admin user and password
         private void Game_Click(object sender, EventArgs e)
         {
             adminTimer++;
@@ -262,7 +274,8 @@ namespace ImpossibleToWinTicTacToe
                     MessageBoxButtons.OK,MessageBoxIcon.Warning);
             }
         }
-
+        
+        //function to disable all buttons after someone wins
         private void disableAllButtons()
         {
             try
